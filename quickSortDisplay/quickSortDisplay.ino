@@ -7,7 +7,7 @@ void setup() {
     lcd.begin(16, 2);
 }
 
-int partition(int array[], int length, int start, int end) {
+int partition(char array[], int length, int start, int end) {
     int pivotIndex = end;
     int leftIndex = start;
     int rightIndex = pivotIndex - 1;
@@ -25,13 +25,13 @@ int partition(int array[], int length, int start, int end) {
             break;
         }
 
-        int temp = array[leftIndex];
+        char temp = array[leftIndex];
         array[leftIndex] = array[rightIndex];
         array[rightIndex] = temp;
         temp = NULL;
     }
 
-    int temp = array[leftIndex];
+    char temp = array[leftIndex];
     array[leftIndex] = array[pivotIndex];
     array[pivotIndex] = temp;
     temp = NULL;
@@ -39,14 +39,14 @@ int partition(int array[], int length, int start, int end) {
     return leftIndex;
 }
 
-void quickSort(int array[], int length, int start, int end) {
+void quickSort(char array[], int length, int start, int end) {
     delay(100);
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Sorting array...");
+    lcd.print("Sorting...");
     lcd.setCursor(0, 1);
-    lcd.print("["); // Yellow colored brackets
+    // lcd.print("[");
     for (int i = 0; i < length; i++) {
         lcd.print(array[i]);
         // if (i == length - 1) {
@@ -55,7 +55,7 @@ void quickSort(int array[], int length, int start, int end) {
         //     lcd.print(",");
         // }
     }
-    lcd.print("]");
+    // lcd.print("]");
 
     if (end - start <= 0) {
         return;
@@ -68,18 +68,37 @@ void quickSort(int array[], int length, int start, int end) {
 }
 
 void loop() {
-    int myArray[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    //char alphabet[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    char myArray[16] = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+    // int count = 0;
+    // int i = 0;
 
     for (int i = 0; i < 100; i++) {
-        int first = random(0, 9);
-        int second = random(9, 9);
+        int left = random(0, 16);
+        int right = random(0, 16);
 
-        if (first != second) {
-            int temp = myArray[first];
-            myArray[first] = myArray[second];
-            myArray[second] = temp;
+        if (left == right) {
+            continue;
         }
+
+        int temp = myArray[left];
+        myArray[left] = myArray[right];
+        myArray[right] = temp;
     }
+
+    // while (count < 15) {
+    //     int randomIndex = random(0, 16);
+
+    //     if (alphabet[randomIndex] == NULL) {
+    //         continue;
+    //     }
+
+    //     myArray[i] = alphabet[randomIndex];
+    //     alphabet[randomIndex] = NULL;
+    //     count++;
+    //     i++;
+    // }
 
     int arrayLength = sizeof(myArray) / sizeof(myArray[0]);
 
@@ -87,9 +106,9 @@ void loop() {
 
     lcd.clear();
     lcd.setCursor(0, 0);
-    lcd.print("Array OK!");
+    lcd.print("Sorting OK!");
     lcd.setCursor(0, 1);
-    lcd.print("["); // Yellow colored brackets
+    // lcd.print("["); 
     for (int i = 0; i < arrayLength; i++) {
         lcd.print(myArray[i]);
         // if (i == arrayLength - 1) {
@@ -98,7 +117,7 @@ void loop() {
         //     lcd.print(",");
         // }
     }
-    lcd.print("]");
+    // lcd.print("]");
 
-    delay(1000);
+    delay(800);
 }
