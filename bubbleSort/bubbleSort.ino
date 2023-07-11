@@ -12,35 +12,33 @@ void bubbleSort(char array[], int length) {
     lcd.setCursor(0, 0);
     lcd.print("Sorting...");
 
-    int maxSorted = length - 1;
+    int pointer = 0;
+    int maxSortedIndex = length - 1;
 
-    while (maxSorted >= 0) {
-        lcd.setCursor(0, 1);
+    bool sorted = false;
 
-        for (int i = 0; i < 16; i++) {
-            lcd.print(array[i]);
-        }
+    while (!sorted) {
+        sorted = true;
 
-        delay(100);
+        while (pointer < maxSortedIndex) {
+            lcd.setCursor(0, 1);
+            for (int i = 0; i < length; i++) {
+                lcd.print(array[i]);
+            }
 
-        int currentMaxIndex = 0;
-        int pointer = currentMaxIndex + 1;
-
-        while (pointer < maxSorted) {
-            if (array[pointer] > array[currentMaxIndex]) {
-                currentMaxIndex = pointer;
+            if (array[pointer] > array[pointer+1]) {
+                sorted = false;
+                char temp = array[pointer];
+                array[pointer] = array[pointer+1];
+                array[pointer+1] = temp;
             }
 
             pointer++;
+            delay(50);
         }
 
-        if (array[maxSorted] < array[currentMaxIndex]) {
-            char temp = array[maxSorted];
-            array[maxSorted] = array[currentMaxIndex];
-            array[currentMaxIndex] = temp;
-        }
-
-        maxSorted--;
+        pointer = 0;
+        maxSortedIndex--;
     }
 }
 
@@ -68,7 +66,7 @@ void loop() {
     lcd.print("Sorting OK!");
 
     lcd.setCursor(0, 1);
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < arrayLength; i++) {
         lcd.print(array[i]);
     }
 
